@@ -19,12 +19,13 @@ cpanm Speek
 
     # CREATE User
 
+    $ mkdir -p user
+    $ touch user/post.txt
+
+    # GET User
+
     $ mkdir -p user/id
-    $ touch user/id/post.txt
-
-    # DELETE User
-
-    $ touch user/id/delete.txt
+    $ touch user/id/get.txt
 
 
 Follow [swat](https://github.com/melezhik/swat) documentation on how to define http resources tests using swat
@@ -44,22 +45,11 @@ Follow [swat](https://github.com/melezhik/swat) documentation on how to define h
     ... got an errors like <HTTP/1.0 404 Not Found>
     ... as you have to impliment endpoints
 
-    HTTP::Server::PSGI: Accepting connections at http://0:5000/
-    127.0.0.1 - - [15/Mar/2016:13:36:45 +0300] "DELETE /user/id HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
-    127.0.0.1 - - [15/Mar/2016:13:36:46 +0300] "DELETE /user/id HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
-    127.0.0.1 - - [15/Mar/2016:13:36:50 +0300] "POST /user/id HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
-    127.0.0.1 - - [15/Mar/2016:13:36:51 +0300] "POST /user/id HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
-    127.0.0.1 - - [15/Mar/2016:13:36:55 +0300] "GET /foo HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
-    127.0.0.1 - - [15/Mar/2016:13:36:56 +0300] "GET /foo HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
-    127.0.0.1 - - [15/Mar/2016:13:37:00 +0300] "GET /users HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
-    127.0.0.1 - - [15/Mar/2016:13:37:01 +0300] "GET /users HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
-    
-
 ## impliment endpoints
 
-    # initialize application
+### initialize application
 
-    $ cat app.pm
+app.pm :
 
     our $USERS = {
         'alex' => {
@@ -70,24 +60,49 @@ Follow [swat](https://github.com/melezhik/swat) documentation on how to define h
             'age' => 1000,
             'email' => 'iamarobot@...'
         },
-
+    
     };
+    
 
+### populate controlers
 
-    # populate controlers
-    # it should be Kelp style routes
+It should be Kelp routes:
 
-    # GET users/
-    $ cat users/get.pm
+#### GET users/
+
+users/get.pm :
 
     my ( $self ) = @_;
     my $list;
-    for my $id ( keys %$USERS ) {
+    for my $id ( sort keys %$USERS ) {
         $list.="$id: $USERS->{$id}->{email}\n";
     }
     
     $list;
 
+#### GET user/id
+
+user/id/get.pm :
+
+    my ($self, $id ) = @_;
+    "id: $id email: ".($USERS->{$id}->{email});
+    
+
+#### POST user
+
+user/post.pm
+
+    my ( $self ) = @_;
+    $USERS->{$self->param('name')} = {
+        email => $self->param('email'),
+        age => $self->param('age'),
+    };
+    
+    "user ".($self->param('name'))." created OK"
+    
+### refine your tests
+
+        
 
 
 
