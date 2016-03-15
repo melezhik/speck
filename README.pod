@@ -1,12 +1,3 @@
-package Spek;
-our $VERSION = v0.0.1;
-1;
-
-__END__
-
-=pod
-
-
 =encoding utf8
 
 
