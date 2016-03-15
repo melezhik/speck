@@ -10,25 +10,33 @@ cpanm Speek
 # USAGE
 
 
-## create some http endpoints
+## create http endpoints
 
-    # GET Users List
+Http routes should be defined at swat test files format:
+
+### GET /users
+
+To get users list ...
 
     $ mkdir users
     $ touch users/get.txt
 
-    # CREATE User
+### POST /user
+
+To create a new user ...
 
     $ mkdir -p user
     $ touch user/post.txt
 
-    # GET User
+### GET /user
+
+To get user info ...
 
     $ mkdir -p user/id
     $ touch user/id/get.txt
 
 
-Follow [swat](https://github.com/melezhik/swat) documentation on how to define http resources tests using swat
+Follow [swat](https://github.com/melezhik/swat) for full explanation of swat test harness.
 
 
 ## run speek application
