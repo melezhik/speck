@@ -1,7 +1,7 @@
 use inc::Module::Install;
 
 # Define metadata
-name           'Spek';
+name           'Spek2';
 
 abstract       'Test Centric Web Framework';
 
