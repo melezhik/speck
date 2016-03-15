@@ -15,6 +15,7 @@ my %seen = ();
 
 # reiniting spek app 
 print "reiniting spek app ...\n";
+
 open APP, ">", "$project_root_dir/speek.psgi" or die $!;
 
 print APP <<HERE;
@@ -23,13 +24,31 @@ use Kelp::Less;
 
 HERE
 
+if ( open INITFILE, "$project_root_dir/app.pm" ){
+
+print "populate app.pm ...\n";
+
+open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
+
+print APP "\n\n";
+
+while (my $l =  <INITFILE>){
+    print APP $l;
+}
+
+print APP "\n\n";
+
 close APP;
+
+close INITFILE;
+
+}
 
 finddepth(\&wanted, $project_root_dir );
 
 sub wanted { 
 
-    my $file = shift;
+    my $file = $_;
 
     if ($file =~ /^(get|post|update|delete)\.txt$/) {
 
@@ -41,18 +60,17 @@ sub wanted {
 
         if ( open CODE, "$resource_dir/$http_method.pm" ){
 
+            print "populate $http_method $resource_dir ...\n";
+
             open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
 
-            print APP <<HERE;
-$http_method '$resource_dir' => sub {
-HERE
+            print APP "$http_method '$resource_dir' => sub {\n\n";
 
             while (my $l =  <CODE>){
-                chomp $l;
-                print APP $l;
+                print APP "\t",$l;
             }
 
-            print APP "};";
+            print APP "\n};\n\n";
 
             close APP;
 
@@ -65,7 +83,7 @@ HERE
 }
 
 
-open APP, ">>", "$project_root_dir/spek.psgi" or die $!;
+open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
 
 print APP <<HERE;
 
@@ -73,4 +91,4 @@ run;
 
 HERE
 
-exec "plackup spek.psgi"
+exec "plackup speek.psgi"
