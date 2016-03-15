@@ -64,6 +64,8 @@ sub wanted {
 
             open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
 
+            s{^$project_root_dir}[] for $resource_dir;
+
             print APP "$http_method '$resource_dir' => sub {\n\n";
 
             while (my $l =  <CODE>){
