@@ -80,13 +80,13 @@ Follow [swat](https://github.com/melezhik/swat) documentation on how to define h
     # GET users/
     $ cat users/get.pm
 
-        my ( $self ) = @_;
-        my $list;
-        for my $id ( keys %$USERS ) {
-            $list.="$id: $USERS->{$id}->email\n";
-        }
-        
-        $list;
+    my ( $self ) = @_;
+    my $list;
+    for my $id ( keys %$USERS ) {
+        $list.="$id: $USERS->{$id}->{email}\n";
+    }
+    
+    $list;
 
 
 
