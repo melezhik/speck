@@ -1,5 +1,5 @@
-package Spek2;
-our $VERSION = v0.0.3;
+package Speek;
+our $VERSION = v0.0.1;
 1;
 
 __END__

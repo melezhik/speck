@@ -1,12 +1,10 @@
-NOTE: THIS IS PLACEHOLDER FOR FUTURE RELEASES
-
-# Spek2
+# Speek
 
 Test centric web framework
 
 # INSTALL
 
-cpanm Spek2
+cpanm Speek
 
 
 # USAGE
@@ -32,9 +30,9 @@ cpanm Spek2
 Follow [swat](https://github.com/melezhik/swat) documentation on how to define http resources tests using swat
 
 
-## run spek application
+## run speek application
 
-    $ spek
+    $ speek
 
 
 ## run swat tests

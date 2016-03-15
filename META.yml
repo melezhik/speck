@@ -11,7 +11,7 @@ license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
-name: Spek2
+name: Speek
 no_index:
   directory:
     - inc
@@ -22,4 +22,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: https://github.com/melezhik/spek
-version: '0.000003'
+version: '0.000001'
