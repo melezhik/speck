@@ -13,9 +13,16 @@ $project_root_dir =  File::Spec->rel2abs($project_root_dir);
 
 my %seen = ();
 
-# erase spek app 
-open F, ">", "$project_root_dir/spek.psgi" or die $!;
-close F;
+# reiniting spek app 
+print "reiniting spek app ...\n";
+open APP, ">", "$project_root_dir/spek.psgi" or die $!;
+print APP<<HERE;
+
+use Kelp::Less;
+
+HERE
+
+close APP;
 
 finddepth(\&wanted, $project_root_dir );
 
@@ -50,3 +57,11 @@ sub wanted {
 }
 
 
+open APP, ">>", "$project_root_dir/spek.psgi" or die $!;
+print APP<<HERE;
+
+run;
+
+HERE
+
+exec "plackup spek.psgi"
