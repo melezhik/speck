@@ -98,6 +98,10 @@ HERE
 for my $k (keys %routes) {
     my ($m,$r) = split /\s+/, $k;
     $m = uc($m);
+
+    s{/id}[/:id] for $r;
+    s{/id/}[/:id/] for $r;
+
     my $code = join "\n\t", @{$routes{$k}};
 
     print APP <<HERE;
