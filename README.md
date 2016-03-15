@@ -111,7 +111,7 @@ user/post.pm
     $ echo swat_module=1 > user/id/swat.ini
     $ echo swat_module=1 > user/swat.ini
 
-### Some tests should pass http request paramaters:
+### Some tests should pass http request parameters:
 
 
 #### POST /user
@@ -138,7 +138,7 @@ user/post.pm
 
     id: foo email: foo@bar
 
-### Some routes shpuld be dynamic
+### Some routes should be dynamic
 
 #### GET /user/id
 
@@ -176,11 +176,11 @@ user/post.pm
     ... should see:
 
 
-    reiniting spek app ...
+    reiniting speek app ...
     populate app.pm ...
-    populate post /home/vagrant/my/spek-example-app/user ...
-    populate get /home/vagrant/my/spek-example-app/user/id ...
-    populate get /home/vagrant/my/spek-example-app/users ...
+    populate post /home/vagrant/my/speek-example-app/user ...
+    populate get /home/vagrant/my/speek-example-app/user/id ...
+    populate get /home/vagrant/my/speek-example-app/users ...
     HTTP::Server::PSGI: Accepting connections at http://0:5000/
     
 ## Run tests
