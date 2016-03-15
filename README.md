@@ -35,14 +35,17 @@ Follow [swat](https://github.com/melezhik/swat) documentation on how to define h
 
     $ speek
 
+    ... you should see HTTP::Server::PSGI: Accepting connections at http://0:5000/
 
 ## run swat tests
 
     # in parallel console
 
+    $ echo 127.0.0.1:5000 > host
+
     $ swat
 
-    ... got an errors like <HTTP/1.0 404 Not Found>
+    ... you should get an errors like <HTTP/1.0 404 Not Found>
     ... as you have to implement endpoints
 
 ## implement endpoints
@@ -100,9 +103,94 @@ user/post.pm
     
     "user ".($self->param('name'))." created OK"
     
-### refine your tests
+## refine your tests
 
+### Tests should be swat modules:
         
+    $ echo swat_module=1 > users/swat.ini
+    $ echo swat_module=1 > user/id/swat.ini
+    $ echo swat_module=1 > user/swat.ini
+
+### Some tests should pass http request paramaters:
+
+
+#### POST /user
+
+    $ echo 'curl_params="-d name=foo -d age=30 -d email='foo@bar'"' >> user/swat.ini
+
+### Define expected response:
+
+#### POST /user :
+    
+    $ echo 'user foo created OK' > user/post.txt
+
+#### GET /users :
+
+    $ cat users/get.txt
+
+    alex: melezhik@gmail.com
+    bot: iamarobot@...
+    foo: foo@bar
+
+#### GET /user/id
+
+    $ cat user/id/get.txt
+
+    id: foo email: foo@bar
+
+### Some routes shpuld be dynamic
+
+#### GET /user/id
+
+    $ cat user/id/hook.pm
+
+    modify_resource(sub {
+        my $r  = shift;
+        my $id = module_variable('id');
+        s{/id}[/$id] for $r;
+        $r;
+    })
+
+
+## And finally create a meta story:
+
+    $ mkdir crud
+    $ cat crud/meta.txt
+
+    application should be able
+    to perform CRUD operations
+    
+    $ cat crud/hook.pm
+
+    run_swat_module( POST => '/user' );
+    run_swat_module( GET => '/user/id', { id => 'foo' }  );
+    run_swat_module( GET => '/users'  );
+    
+## Rebuild speek app
+
+    In console running speek app:
+
+    $ <CRTL> + <C>
+    $ speek
+
+    ... should see:
+
+
+    reiniting spek app ...
+    populate app.pm ...
+    populate post /home/vagrant/my/spek-example-app/user ...
+    populate get /home/vagrant/my/spek-example-app/user/id ...
+    populate get /home/vagrant/my/spek-example-app/users ...
+    HTTP::Server::PSGI: Accepting connections at http://0:5000/
+    
+## Run tests
+
+    swat
+
+
+
+
+
 
 
 
