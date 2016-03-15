@@ -3,14 +3,14 @@
 NOTE: THIS IS PLACEHOLDER FOR FUTURE RELEASES
 
 
-=head1 speck
+=head1 Spek2
 
 Test centric web framework
 
 
 =head1 INSTALL
 
-cpanm Spek
+cpanm Spek2
 
 
 =head1 USAGE

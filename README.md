@@ -1,12 +1,12 @@
 NOTE: THIS IS PLACEHOLDER FOR FUTURE RELEASES
 
-# speck
+# Spek2
 
 Test centric web framework
 
 # INSTALL
 
-cpanm Spek
+cpanm Spek2
 
 
 # USAGE

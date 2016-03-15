@@ -5,7 +5,7 @@ name           'Spek';
 
 abstract       'Test Centric Web Framework';
 
-all_from       'lib/Spek.pm';
+all_from       'lib/Spek2.pm';
 
 # Specific dependencies
 requires    'swat', ">= 0.1.91";
