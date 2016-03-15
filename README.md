@@ -43,9 +43,9 @@ Follow [swat](https://github.com/melezhik/swat) documentation on how to define h
     $ swat
 
     ... got an errors like <HTTP/1.0 404 Not Found>
-    ... as you have to impliment endpoints
+    ... as you have to implement endpoints
 
-## impliment endpoints
+## implement endpoints
 
 ### initialize application
 
@@ -64,7 +64,7 @@ app.pm :
     };
     
 
-### populate controlers
+### populate controllers
 
 It should be Kelp routes:
 
