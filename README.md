@@ -57,6 +57,38 @@ Follow [swat](https://github.com/melezhik/swat) documentation on how to define h
 
 ## impliment endpoints
 
+    # initialize application
+
+    $ cat app.pm
+
+    our $USERS = {
+        'alex' => {
+            'age' => 39,
+            'email' => 'melezhik@gmail.com'
+        },
+        'bot' => {
+            'age' => 1000,
+            'email' => 'iamarobot@...'
+        },
+
+    };
+
+
+    # populate controlers
+    # it should be Kelp style routes
+
+    # GET users/
+    $ cat users/get.pm
+
+        my ( $self ) = @_;
+        my $list;
+        for my $id ( keys %$USERS ) {
+            $list.="$id: $USERS->{$id}->email\n";
+        }
+        
+        $list;
+
+
 
 
 

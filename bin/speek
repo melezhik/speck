@@ -15,8 +15,9 @@ my %seen = ();
 
 # reiniting spek app 
 print "reiniting spek app ...\n";
-open APP, ">", "$project_root_dir/spek.psgi" or die $!;
-print APP<<HERE;
+open APP, ">", "$project_root_dir/speek.psgi" or die $!;
+
+print APP <<HERE;
 
 use Kelp::Less;
 
@@ -38,16 +39,23 @@ sub wanted {
 
         my $resource_dir = $File::Find::dir;
 
-        if ( open CODE, ">>", "$resource_dir/$http_method.pm" ){
+        if ( open CODE, "$resource_dir/$http_method.pm" ){
 
-            open APP, ">>", "$project_root_dir/spek.psgi" or die $!;
+            open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
+
+            print APP <<HERE;
+$http_method '$resource_dir' => sub {
+HERE
 
             while (my $l =  <CODE>){
                 chomp $l;
                 print APP $l;
             }
 
+            print APP "};";
+
             close APP;
+
             close CODE;
         }
         
@@ -58,7 +66,8 @@ sub wanted {
 
 
 open APP, ">>", "$project_root_dir/spek.psgi" or die $!;
-print APP<<HERE;
+
+print APP <<HERE;
 
 run;
 
