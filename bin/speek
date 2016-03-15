@@ -20,7 +20,8 @@ open APP, ">", "$project_root_dir/speek.psgi" or die $!;
 
 print APP <<HERE;
 
-use Kelp::Less;
+use parent 'Kelp';
+
 
 HERE
 
@@ -46,6 +47,8 @@ close INITFILE;
 
 finddepth(\&wanted, $project_root_dir );
 
+my %routes;
+
 sub wanted { 
 
     my $file = $_;
@@ -62,24 +65,18 @@ sub wanted {
 
             print "populate $http_method $resource_dir ...\n";
 
-            open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
+            my $r;
 
             s{^$project_root_dir}[] for $resource_dir;
 
-            print APP "$http_method '$resource_dir' => sub {\n\n";
-
             while (my $l =  <CODE>){
-                print APP "\t",$l;
+                chomp $l;
+                push @{$routes{"$http_method $resource_dir"}}, $l ;
             }
-
-            print APP "\n};\n\n";
-
-            close APP;
-
             close CODE;
         }
-        
-        $seen{$File::Find::name}=1;
+
+        $seen{$File::Find::name} = 1;
    }
 
 }
@@ -87,10 +84,46 @@ sub wanted {
 
 open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
 
-print APP <<HERE;
 
-run;
+print APP <<'HERE' if keys %routes;
+
+sub build {
+
+    my $self = shift;
+    my $r = $self->routes;
 
 HERE
 
+
+for my $k (keys %routes) {
+    my ($m,$r) = split /\s+/, $k;
+    $m = uc($m);
+    my $code = join "\n\t", @{$routes{$k}};
+
+    print APP <<HERE;
+    \$r->add([ $m => '$r'  ] , sub {
+        $code
+    });
+
+HERE
+
+
+}
+
+print APP "\n\n}\n\n" if keys %routes;
+
+print APP <<'HERE';
+
+my $app = __PACKAGE__->new;
+$app->run;
+
+HERE
+
+close APP;
+
+
 exec "plackup speek.psgi"
+
+__END__
+
+ $r->add( [ POST => '/postme' ], sub { 'i am post only!' }  );
