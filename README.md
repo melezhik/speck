@@ -185,9 +185,29 @@ user/post.pm
     
 ## Run tests
 
-    swat
+    $ swat
 
+    ... should see :
 
+    /home/vagrant/.swat/.cache/5738/prove/crud/META/request.t ..
+    # @META
+    #        application should be able
+    #        to perform CRUD operations
+    #
+    ok 1 - 200 / 1 of 2 curl -X POST -k --connect-timeout 20 -m 20 -d name=foo -d age=30 -d email='foo@bar' -L -D - '127.0.0.1:5000/user'
+    ok 2 - output match 'user foo created OK'
+    ok 3 - 200 / 1 of 2 curl -X GET -k --connect-timeout 20 -m 20 -L -D - '127.0.0.1:5000/user/foo'
+    ok 4 - output match 'id: foo email: foo@bar'
+    ok 5 - 200 / 1 of 2 curl -X GET -k --connect-timeout 20 -m 20 -L -D - '127.0.0.1:5000/users'
+    ok 6 - output match 'alex: melezhik@gmail.com'
+    ok 7 - output match 'bot: iamarobot@...'
+    ok 8 - output match 'foo: foo@bar'
+    1..8
+    ok
+    All tests successful.
+    Files=1, Tests=8,  0 wallclock secs ( 0.02 usr  0.00 sys +  0.06 cusr  0.00 csys =  0.08 CPU)
+    Result: PASS
+    
 
 
 
