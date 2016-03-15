@@ -1,5 +1,5 @@
 package Speek;
-our $VERSION = v0.0.1;
+our $VERSION = 0.0.6;
 1;
 
 __END__

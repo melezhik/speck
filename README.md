@@ -1,14 +1,17 @@
-# Speek
+# NAME
+
+Spek
+
+# SYNOPSIS
 
 Test centric web framework
 
 # INSTALL
 
-cpanm Speek
+cpanm Spek
 
 
 # USAGE
-
 
 ## create http endpoints
 
@@ -39,9 +42,9 @@ To get user info ...
 Follow [swat](https://github.com/melezhik/swat) for full explanation of swat test harness.
 
 
-## run speek application
+## run spek application
 
-    $ speek
+    $ spek
 
     ... you should see HTTP::Server::PSGI: Accepting connections at http://0:5000/
 
@@ -174,21 +177,21 @@ user/post.pm
     run_swat_module( GET => '/user/id', { id => 'foo' }  );
     run_swat_module( GET => '/users'  );
     
-## Rebuild speek app
+## Rebuild spek app
 
-    In console running speek app:
+    In console running spek app:
 
     $ <CTRL> + <C>
-    $ speek
+    $ spek
 
     ... should see:
 
 
-    reiniting speek app ...
+    reiniting spek app ...
     populate app.pm ...
-    populate post /home/vagrant/my/speek-example-app/user ...
-    populate get /home/vagrant/my/speek-example-app/user/id ...
-    populate get /home/vagrant/my/speek-example-app/users ...
+    populate post /home/vagrant/my/spek-example-app/user ...
+    populate get /home/vagrant/my/spek-example-app/user/id ...
+    populate get /home/vagrant/my/spek-example-app/users ...
     HTTP::Server::PSGI: Accepting connections at http://0:5000/
     
 ## Run tests
@@ -217,15 +220,12 @@ user/post.pm
     Result: PASS
     
 
+# Author
+
+[Alexey Melezhik](maito:melezhik@gmail.com)
+
 # See also
 
 * [Kelp](https://metacpan.org/pod/Kelp)
 
 * [swat](https://metacpan.org/pod/swat)
-
-
-
-
-
-
-

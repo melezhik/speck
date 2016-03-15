@@ -1,11 +1,11 @@
 use inc::Module::Install;
 
 # Define metadata
-name           'Speek';
+name           'Spek';
 
 abstract       'Test Centric Web Framework';
 
-all_from       'lib/Speek.pm';
+all_from       'lib/Spek.pm';
 
 # Specific dependencies
 requires    'swat', ">= 0.1.91";
@@ -15,7 +15,7 @@ license     'perl';
 
 repository  'https://github.com/melezhik/speek';
 
-install_script 'bin/speek';
+install_script 'bin/spek';
 
 WriteAll;
 
