@@ -13,7 +13,7 @@ requires    'Kelp';
 
 license     'perl';
 
-repository  'https://github.com/melezhik/spek';
+repository  'https://github.com/melezhik/speek';
 
 install_script 'bin/speek';
 
