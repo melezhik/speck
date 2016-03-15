@@ -178,7 +178,7 @@ user/post.pm
 
     In console running speek app:
 
-    $ <CRTL> + <C>
+    $ <CTRL> + <C>
     $ speek
 
     ... should see:
