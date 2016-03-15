@@ -77,7 +77,7 @@ app.pm :
 
 ### populate controllers
 
-It should be Kelp routes:
+It should be [Kelp](https://metacpan.org/pod/Kelp) routes:
 
 #### GET users/
 
@@ -216,6 +216,12 @@ user/post.pm
     Files=1, Tests=8,  0 wallclock secs ( 0.02 usr  0.00 sys +  0.06 cusr  0.00 csys =  0.08 CPU)
     Result: PASS
     
+
+# See also
+
+* [Kelp](https://metacpan.org/pod/Kelp)
+
+* [swat](https://metacpan.org/pod/swat)
 
 
 
