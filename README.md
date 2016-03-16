@@ -227,6 +227,22 @@ Now you have a specifi(K)ation simply just running:
     Files=1, Tests=8,  0 wallclock secs ( 0.02 usr  0.00 sys +  0.06 cusr  0.00 csys =  0.08 CPU)
     Result: PASS
 
+# appliaction introspection
+
+## routes
+
+To inspect all available routes:
+
+    $ spek --routes
+
+## meta stories
+
+To inspect meta stories:
+
+    $ find ./ -name meta.txt -exec tail -v {} \;
+
+Read [swat](https://github.com/melezhik/swat#meta-stories) documentation to know more about swat meta stories.
+
 # Author
 
 [Alexey Melezhik](maito:melezhik@gmail.com)

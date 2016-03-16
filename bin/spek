@@ -7,10 +7,10 @@ use File::Spec;
 use Getopt::Long;
 use Cwd;
 
-my $show_mod;
+my $show_routes;
 
 GetOptions (
-        "show"  => \$show_mod
+        "routes"  => \$show_routes
 ) or die("Error in command line arguments\n");
 
 my $project_root_dir  = getcwd();
@@ -20,7 +20,7 @@ $project_root_dir =  File::Spec->rel2abs($project_root_dir);
 my %seen = ();
 
 
-unless ($show_mod) {
+unless ($show_routes) {
 
 # reiniting spek app 
 
@@ -73,10 +73,15 @@ sub wanted {
 
         my $resource_dir = $File::Find::dir;
 
-        if ( open CODE, "$resource_dir/$http_method.pm" ){
+        if ($show_routes){
+
+            s{^$project_root_dir}[] for $resource_dir;
+
+            print "$http_method $resource_dir \n";
+
+        }elsif( open CODE, "$resource_dir/$http_method.pm" ){
 
             print "populate $http_method $resource_dir ...\n";
-            next if $show_mod;
             my $r;
 
             s{^$project_root_dir}[] for $resource_dir;
@@ -93,7 +98,7 @@ sub wanted {
 
 }
 
-unless ($show_mod) {
+unless ($show_routes) {
 
 open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
 
