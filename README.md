@@ -13,9 +13,9 @@ cpanm Spek
 
 # USAGE
 
-## create http endpoints
+## declare http endpoints
 
-Http routes should be defined at swat test files format:
+To declare http endpoint you should write swat tests:
 
 ### GET /users
 
@@ -46,7 +46,9 @@ Follow [swat](https://github.com/melezhik/swat) for full explanation of swat tes
 
     $ spek
 
-    ... you should see HTTP::Server::PSGI: Accepting connections at http://0:5000/
+    ... you should see:
+
+    HTTP::Server::PSGI: Accepting connections at http://0:5000/
 
 ## run swat tests
 
@@ -57,7 +59,11 @@ Follow [swat](https://github.com/melezhik/swat) for full explanation of swat tes
     $ swat
 
     ... you should get an errors like <HTTP/1.0 404 Not Found>
-    ... as you have to implement endpoints
+    ... as endpoints are not *defined* yet
+
+    127.0.0.1 - - [16/Mar/2016:09:00:03 +0300] "GET /users HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
+    127.0.0.1 - - [16/Mar/2016:09:00:03 +0300] "GET /user/foo HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
+    127.0.0.1 - - [16/Mar/2016:09:00:03 +0300] "POST /user HTTP/1.1" 404 20 "-" "curl/7.47.0-DEV"
 
 ## implement endpoints
 
@@ -196,9 +202,11 @@ user/post.pm
     
 ## Run tests
 
+Now you have a specifi(K)ation simply just running:
+
     $ swat
 
-    ... should see :
+    ... should see:
 
     /home/vagrant/.swat/.cache/5738/prove/crud/META/request.t ..
     # @META
@@ -218,7 +226,6 @@ user/post.pm
     All tests successful.
     Files=1, Tests=8,  0 wallclock secs ( 0.02 usr  0.00 sys +  0.06 cusr  0.00 csys =  0.08 CPU)
     Result: PASS
-    
 
 # Author
 
