@@ -7,8 +7,10 @@ use File::Spec;
 use Getopt::Long;
 use Cwd;
 
+my $show_mod;
+
 GetOptions (
-        "show"  => \$show_mode
+        "show"  => \$show_mod
 ) or die("Error in command line arguments\n");
 
 my $project_root_dir  = getcwd();
@@ -17,7 +19,11 @@ $project_root_dir =  File::Spec->rel2abs($project_root_dir);
 
 my %seen = ();
 
+
+unless ($show_mod) {
+
 # reiniting spek app 
+
 print "reiniting spek app ...\n";
 
 open APP, ">", "$project_root_dir/speek.psgi" or die $!;
@@ -49,6 +55,8 @@ close INITFILE;
 
 }
 
+}
+
 finddepth(\&wanted, $project_root_dir );
 
 my %routes;
@@ -68,7 +76,7 @@ sub wanted {
         if ( open CODE, "$resource_dir/$http_method.pm" ){
 
             print "populate $http_method $resource_dir ...\n";
-
+            next if $show_mod;
             my $r;
 
             s{^$project_root_dir}[] for $resource_dir;
@@ -85,6 +93,7 @@ sub wanted {
 
 }
 
+unless ($show_mod) {
 
 open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
 
@@ -132,6 +141,7 @@ close APP;
 
 exec "plackup speek.psgi"
 
+}
+
 __END__
 
- $r->add( [ POST => '/postme' ], sub { 'i am post only!' }  );
