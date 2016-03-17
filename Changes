@@ -1,3 +1,7 @@
+0.0.8 2016-03-17
+
+* automatically generate hooks for */id/* routes to automate passing `id' parameters to Kelp routes
+
 0.0.7 2016-03-16
 
 * Improved documentation

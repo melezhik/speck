@@ -155,20 +155,6 @@ user/post.pm
 
     id: foo email: foo@bar
 
-### Some routes should be dynamic
-
-#### GET /user/id
-
-    $ cat user/id/hook.pm
-
-    modify_resource(sub {
-        my $r  = shift;
-        my $id = module_variable('id');
-        s{/id}[/$id] for $r;
-        $r;
-    })
-
-
 ## And finally create a meta story:
 
     $ mkdir crud

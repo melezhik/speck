@@ -114,11 +114,35 @@ HERE
 
 
 for my $k (keys %routes) {
+
     my ($m,$r) = split /\s+/, $k;
+
     $m = uc($m);
 
-    s{/id}[/:id] for $r;
-    s{/id/}[/:id/] for $r;
+    if ( $r=~/\/id$/ or $r=~/\/id\// ) {
+
+
+        print "generate hook for $r ... \n";
+
+        open HOOK, "> $project_root_dir/$r/hook.pm" or die $!;
+
+        print HOOK <<'HERE2';
+
+modify_resource(sub{
+    my $r = shift;
+    my $id = module_variable('id');
+    s{/id}[/$id] for $r;
+    $r;
+});
+
+HERE2
+
+        close HOOK;
+
+        s{/id}[/:id]    for $r;
+        s{/id/}[/:id/]  for $r;
+
+    }
 
     my $code = join "\n\t", @{$routes{$k}};
 
