@@ -225,7 +225,7 @@ To inspect all available routes:
 
 To inspect meta stories:
 
-    $ find ./ -name meta.txt -exec tail -v {} \;
+    $ spek --meta
 
 Read [swat](https://github.com/melezhik/swat#meta-stories) documentation to know more about swat meta stories.
 
