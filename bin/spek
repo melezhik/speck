@@ -42,7 +42,7 @@ $project_root_dir =  File::Spec->rel2abs($project_root_dir);
 my %seen = ();
 
 
-unless ($show_routes) {
+unless ($show_routes or $show_meta) {
 
 # reiniting spek app 
 
@@ -87,11 +87,13 @@ sub wanted {
 
     my $file = $_;
 
-    if ($file =~ /^(get|post|update|delete)\.txt$/) {
+    if ($file =~ /^(get|post|update|delete|meta)\.txt$/) {
 
         my $http_method = $1;
 
         return if $seen{$File::Find::name};
+
+        next if ! $show_meta and $http_method eq 'meta';
 
         my $resource_dir = $File::Find::dir;
 
@@ -101,7 +103,20 @@ sub wanted {
 
             print "$http_method $resource_dir \n";
 
-        }elsif( open CODE, "$resource_dir/$http_method.pm" ){
+        }elsif( $show_meta and $http_method eq 'meta' ){
+
+            open META, "$resource_dir/meta.txt" or die $!;
+
+            s{^$project_root_dir}[] for $resource_dir;
+
+            print "\@meta $resource_dir:  \n";
+
+            while(my $l =  <META>){
+                print "\t$l";
+            }
+            close META;
+        
+        } elsif( open CODE, "$resource_dir/$http_method.pm" ){
 
             print "populate $http_method $resource_dir ...\n";
             my $r;
@@ -120,7 +135,7 @@ sub wanted {
 
 }
 
-unless ($show_routes) {
+unless ($show_routes or $show_meta) {
 
 open APP, ">>", "$project_root_dir/speek.psgi" or die $!;
 
