@@ -1,3 +1,7 @@
+0.0.8 
+
+* avoid repeated hook.pm generations for the same route
+
 0.0.8 2016-03-17
 
 * automatically generate hooks for */id/* routes to make automatic passing `id' parameters to Kelp routes
@@ -14,7 +18,7 @@
 
 0.0.1 2016-03-15
 
-FIRST REALSE TO CPAN
+FIRST RELEASE TO CPAN
 
 
 

@@ -149,6 +149,7 @@ sub build {
 
 HERE
 
+my %hooks;
 
 for my $k (keys %routes) {
 
@@ -156,8 +157,8 @@ for my $k (keys %routes) {
 
     $m = uc($m);
 
-    if ( $r=~/\/id$/ or $r=~/\/id\// ) {
-
+    if ( $r=~/\/id$/ or $r=~/\/id\// and ! $hooks{$r} ) {
+    
 
         print "generate hook for $r ... \n";
 
@@ -175,6 +176,8 @@ modify_resource(sub{
 HERE2
 
         close HOOK;
+
+        $hooks{$r}=1;
 
         s{/id}[/:id]    for $r;
         s{/id/}[/:id/]  for $r;
