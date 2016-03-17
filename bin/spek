@@ -157,9 +157,10 @@ for my $k (keys %routes) {
 
     $m = uc($m);
 
-    if ( $r=~/\/id$/ or $r=~/\/id\// and ! $hooks{$r} ) {
+    if ( $r=~/\/id$/ or $r=~/\/id\// ) {
     
 
+        if ( ! $hooks{$r} ) {
         print "generate hook for $r ... \n";
 
         open HOOK, "> $project_root_dir/$r/hook.pm" or die $!;
@@ -176,6 +177,8 @@ modify_resource(sub{
 HERE2
 
         close HOOK;
+
+        }
 
         $hooks{$r}=1;
 
