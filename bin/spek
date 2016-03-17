@@ -8,10 +8,32 @@ use Getopt::Long;
 use Cwd;
 
 my $show_routes;
+my $show_meta;
+my $show_help;
 
 GetOptions (
-        "routes"  => \$show_routes
+        "help"    => \$show_help,
+        "routes"  => \$show_routes,
+        "meta"    => \$show_meta,
 ) or die("Error in command line arguments\n");
+
+if ($show_help){
+
+    print <<HERE;
+
+Usage: spek [args]
+
+No args: rebuild spek application and run
+
+Args:
+
+--routes    show available http routes
+--meta      show meta stories
+
+HERE
+
+    exit(0);
+}
 
 my $project_root_dir  = getcwd();
 
