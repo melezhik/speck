@@ -1,6 +1,11 @@
 0.0.8 2016-03-17
 
-* automatically generate hooks for */id/* routes to automate passing `id' parameters to Kelp routes
+* automatically generate hooks for */id/* routes to make automatic passing `id' parameters to Kelp routes
+
+* added help info for spek script
+
+* added meta action for spek script
+
 
 0.0.7 2016-03-16
 

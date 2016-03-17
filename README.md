@@ -231,7 +231,7 @@ Read [swat](https://github.com/melezhik/swat#meta-stories) documentation to know
 
 # Author
 
-[Alexey Melezhik](maito:melezhik@gmail.com)
+[Alexey Melezhik](mailto:melezhik@gmail.com)
 
 # See also
 

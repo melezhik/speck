@@ -1,7 +1,7 @@
 ---
 abstract: 'Test Centric Web Framework'
 author:
-  - 'L<Alexey Melezhik|maito:melezhik@gmail.com>'
+  - 'L<Alexey Melezhik|mailto:melezhik@gmail.com>'
 build_requires:
   ExtUtils::MakeMaker: 6.36
 configure_requires:
@@ -24,4 +24,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: https://github.com/melezhik/spek
-version: 0.0.7
+version: 0.0.8

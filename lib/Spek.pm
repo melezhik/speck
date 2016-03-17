@@ -185,21 +185,6 @@ user/post.pm
     id: foo email: foo@bar
 
 
-=head3 Some routes should be dynamic
-
-
-=head4 GET /user/id
-
-    $ cat user/id/hook.pm
-    
-    modify_resource(sub {
-        my $r  = shift;
-        my $id = module_variable('id');
-        s{/id}[/$id] for $r;
-        $r;
-    })
-
-
 =head2 And finally create a meta story:
 
     $ mkdir crud
@@ -261,7 +246,7 @@ Now you have a specifi(K)ation simply just running:
     Result: PASS
 
 
-=head1 appliaction introspection
+=head1 application introspection
 
 
 =head2 routes
@@ -275,14 +260,14 @@ To inspect all available routes:
 
 To inspect meta stories:
 
-    $ find ./ -name meta.txt -exec tail -v {} \;
+    $ spek --meta
 
 Read L<swat|https://github.com/melezhik/swat#meta-stories> documentation to know more about swat meta stories.
 
 
 =head1 Author
 
-L<Alexey Melezhik|maito:melezhik@gmail.com>
+L<Alexey Melezhik|mailto:melezhik@gmail.com>
 
 
 =head1 See also
