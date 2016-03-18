@@ -246,7 +246,7 @@ Now you have a specifi(K)ation simply just running:
     Result: PASS
 
 
-=head1 application introspection
+=head1 Application introspection
 
 
 =head2 routes
@@ -265,9 +265,82 @@ To inspect meta stories:
 Read L<swat|https://github.com/melezhik/swat#meta-stories> documentation to know more about swat meta stories.
 
 
+=head1 Advanced usage
+
+
+=head2 handling json responses
+
+Modify Kelp controller
+
+
+=head3 GET /user/id
+
+    $ cat user/id/get.pm
+    
+    my ($self, $id ) = @_;
+    {
+        id => $id,
+        email => $USERS->{$id}->{email} ,
+        age => $USERS->{$id}->{age}
+    }
+
+Add json handler to swat test:
+
+    $ cat user/id/get.handler
+    
+    my $headers   = shift;
+    my $body      = shift;
+    use JSON;
+    $hash = decode_json($body);
+    return "$headers\n".("id: $hash->{id}\nemail: $hash->{email}\nage: $hash->{age}");
+
+Regenerate spek application
+
+    $ <CTRL> + <C> # to stop running application
+    
+    $ spek
+    
+    ... should see:
+    
+    reiniting spek app ...
+    populate app.pm ...
+    populate post /home/vagrant/my/spek-example-app/user ...
+    populate delete /home/vagrant/my/spek-example-app/user/id ...
+    populate get /home/vagrant/my/spek-example-app/user/id ...
+    populate get /home/vagrant/my/spek-example-app/users ...
+    generate hook for /user/id ...
+    inject response handler for get ...
+
+Run swat tests
+
+    $ swat
+    
+    ... should see:
+    
+    ok 1 - 200 / 1 of 1 curl -X DELETE -k --connect-timeout 20 -m 20 -L -D - '127.0.0.1:5000/user/foo'
+    # modified response saved to /home/vagrant/.swat/.cache/23224/prove/mFRKPZV6Im
+    ok 2 - output match 'id: foo'
+    ok 3 - output match 'message: user deleted OK'
+    ok 4 - output match 'status: OK'
+
+Read more L<swat docs|https://github.com/melezhik/swat#process-http-responses> on how to process
+http responses.
+
+To add handlers for other http methods simple create a proper handler file:
+
+    $ DELETE /user/id
+    
+    $ nano user/id/delete.handler # and so on ...
+
+
 =head1 Author
 
 L<Alexey Melezhik|mailto:melezhik@gmail.com>
+
+
+=head1 Download example spek application
+
+You can upload source code here - L<https://github.com/melezhik/spek-example-app|https://github.com/melezhik/spek-example-app>
 
 
 =head1 See also
