@@ -20,8 +20,8 @@ no_index:
     - t
 requires:
   Kelp: 0
-  swat: '>= 0.1.91'
+  swat: 0.1.93
 resources:
   license: http://dev.perl.org/licenses/
   repository: https://github.com/melezhik/spek
-version: 0.0.9
+version: 0.0.10
