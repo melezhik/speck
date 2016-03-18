@@ -317,19 +317,19 @@ Run swat tests
     
     ... should see:
     
-    ok 1 - 200 / 1 of 1 curl -X DELETE -k --connect-timeout 20 -m 20 -L -D - '127.0.0.1:5000/user/foo'
-    # modified response saved to /home/vagrant/.swat/.cache/23224/prove/mFRKPZV6Im
-    ok 2 - output match 'id: foo'
-    ok 3 - output match 'message: user deleted OK'
-    ok 4 - output match 'status: OK'
+    ok 7 - 200 / 1 of 1 curl -X GET -k --connect-timeout 20 -m 20 -L -D - '127.0.0.1:5000/user/foo'
+    ok 8 - output match 'Content-Type: application/json'
+    ok 9 - output match 'id: foo'
+    ok 10 - output match 'email: foo@bar'
 
 Read more L<swat docs|https://github.com/melezhik/swat#process-http-responses> on how to process
 http responses.
 
-To add handlers for other http methods simple create a proper handler file:
+To add handlers for other http methods simply create a proper handler file:
 
-    $ DELETE /user/id
-    
+
+=head3 DELETE /user/id
+
     $ nano user/id/delete.handler # and so on ...
 
 
