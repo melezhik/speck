@@ -1,6 +1,8 @@
-0.0.8 
+0.0.9 
 
 * avoid repeated hook.pm generations for the same route
+
+* injection of response handlers into hooks code 
 
 0.0.8 2016-03-17
 

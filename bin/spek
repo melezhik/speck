@@ -82,7 +82,7 @@ close INITFILE;
 finddepth(\&wanted, $project_root_dir );
 
 my %routes;
-
+    
 sub wanted { 
 
     my $file = $_;
@@ -155,13 +155,24 @@ for my $k (keys %routes) {
 
     my ($m,$r) = split /\s+/, $k;
 
-    $m = uc($m);
+    my %handlers;
 
     if ( $r=~/\/id$/ or $r=~/\/id\// ) {
     
-
         if ( ! $hooks{$r} ) {
+
         print "generate hook for $r ... \n";
+
+        for my $meth (qw{ get post delete update }){
+
+            if (-f "$project_root_dir/$r/$meth.handler"){
+                open HANDLER, "$project_root_dir/$r/$meth.handler" or die $!;
+                while ( my $j = <HANDLER> ){
+                    $handlers{$meth}.="\t$j";
+                }
+                close HANDLER;
+            }
+        }
 
         open HOOK, "> $project_root_dir/$r/hook.pm" or die $!;
 
@@ -175,6 +186,22 @@ modify_resource(sub{
 });
 
 HERE2
+        for my $meth (keys %handlers) {
+
+            print "inject response handler for $meth ...\n";
+            print HOOK <<HERE3;
+
+if (http_method() eq uc('$meth') ){
+set_response_processor( sub { 
+
+$handlers{$meth}
+
+    });}
+            
+HERE3
+
+
+        } # end for meth
 
         close HOOK;
 
@@ -188,6 +215,8 @@ HERE2
     }
 
     my $code = join "\n\t", @{$routes{$k}};
+
+    $m = uc($m);
 
     print APP <<HERE;
     \$r->add([ $m => '$r'  ] , sub {
