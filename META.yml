@@ -24,4 +24,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: https://github.com/melezhik/spek
-version: 0.0.8
+version: 0.0.9
